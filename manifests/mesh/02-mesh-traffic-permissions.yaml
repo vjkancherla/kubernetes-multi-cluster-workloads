@@ -1,0 +1,16 @@
+# Allow all comms between services in the kuma-demo namespace
+apiVersion: kuma.io/v1alpha1
+kind: MeshTrafficPermission
+metadata:
+  namespace: kuma-system
+  name: allow-all-kuma-demo
+spec:
+  targetRef:
+    kind: Mesh
+  from:
+    - targetRef:
+        kind: MeshSubset
+        tags:
+          k8s.kuma.io/namespace: kuma-demo
+      default:
+        action: Allow
